@@ -24,18 +24,83 @@ exports.initialize = function(pathsObj) {
 
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
-
+console.log('wael5');
+var arr = [];
+var str = '';
 exports.readListOfUrls = function(callback) {
+  
+  fs.readFile(exports.paths.list, (err, data )=>{
+   
+    if (err) { throw err; }
+    // console.log('23', data.toString());
+    str = data.toString();
+    arr = str.split('\n');
+    // console.log('22', arr);
+    callback(arr);
+  });
+
 };
 
 exports.isUrlInList = function(url, callback) {
+  fs.readFile(exports.paths.list, (err, data)=>{
+   
+    if (err) { throw err; }
+    str = data.toString();
+    arr = str.split('\n');
+  
+    var urll = arr.indexOf(url) !== -1;
+    
+    callback(urll);
+  });
+
+  
+
 };
 
 exports.addUrlToList = function(url, callback) {
+  fs.writeFile(exports.paths.list, url, (err) => {
+    
+    if (err) { throw err; }
+   
+    
+  });
+  callback();
+
 };
 
 exports.isUrlArchived = function(url, callback) {
+  fs.readdir(exports.paths.archivedSites, (err, files)=>{
+   
+    
+    if (err) { throw err; }
+    
+    var urll = files.includes(url);
+    callback(urll);
+  } );
+  
+  
+ 
 };
 
 exports.downloadUrls = function(urls) {
+  // for (var i = 0; i < urls.length; i++) {
+  //   console.log('1', urls);
+  //   console.log('2', urls[i]);
+  //   9
+  //     console.log('3', urls[i]);
+  //     fs.appendFile(exports.paths.list, urls[i], (err)=>{
+  //       if (err) { throw err; }
+  //       console.log('4', urls[i]);
+  //       console.log('5', urls);
+  //     });
+      
+  //   }
+  // }
+   
+  var path = fs.createWriteStream(exports.paths.archivedSites);
+  var newStrem = request.get({
+    url = urls[i];
+  })
+  pipe(path)
+  
 };
